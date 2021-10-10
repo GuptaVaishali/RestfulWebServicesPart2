@@ -1,8 +1,19 @@
 package com.ttn.spring.springRest.webServices.RestWebServices1.employee;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class EmployeeBean {
     private Integer id;
+
+    @Pattern(regexp = "[a-zA-Z]*", message = "Name should contain alphabets only")
+    @Size(min = 2, message = "Name length should be greater than 2")
     private String name;
+
+    @Min(value = 18, message = "Minimum age of employee should be 18")
+    @Max(value = 60, message = "Maximum age of employee should be 60")
     private Integer age;
 
     public EmployeeBean(Integer id, String name, Integer age) {

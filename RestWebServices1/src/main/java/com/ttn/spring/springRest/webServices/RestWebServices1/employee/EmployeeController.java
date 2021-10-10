@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public ResponseEntity<Object> createEmployee(@RequestBody EmployeeBean employee){
+    public ResponseEntity<Object> createEmployee(@Valid @RequestBody EmployeeBean employee){
         EmployeeBean savedEmployee = service.save(employee);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("{id}")
@@ -45,8 +46,10 @@ public class EmployeeController {
     }
 
     @PutMapping("/employees")
-    public ResponseEntity<Object> updateEmployee(@RequestBody EmployeeBean employee){
+    public ResponseEntity<Object> updateEmployee(@Valid @RequestBody EmployeeBean employee){
         EmployeeBean updatedEmployee = service.updateEmployeeDetails(employee);
+        if (updatedEmployee == null)
+            throw new EmployeeNotFoundException("Incorrect id");
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("{id}")
                 .buildAndExpand(updatedEmployee.getId()).toUri();
