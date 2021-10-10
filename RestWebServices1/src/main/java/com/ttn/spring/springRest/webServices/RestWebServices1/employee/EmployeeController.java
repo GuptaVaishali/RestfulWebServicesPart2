@@ -22,6 +22,8 @@ public class EmployeeController {
     @GetMapping("/employees/{id}")
     public EmployeeBean retrieveEmployee(@PathVariable int id){
         EmployeeBean employee = service.findOne(id);
+        if(employee == null)
+            throw new EmployeeNotFoundException("id- " + id);
         return employee;
     }
 
@@ -34,6 +36,8 @@ public class EmployeeController {
 
         return ResponseEntity.created(location).build();
     }
+
+
 
 
 }
