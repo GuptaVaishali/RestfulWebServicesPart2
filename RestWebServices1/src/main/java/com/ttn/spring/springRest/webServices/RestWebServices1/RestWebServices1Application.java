@@ -1,4 +1,4 @@
-package com.ttn.spring.springRest.webServices.RestWebServices1.springWelcome;
+package com.ttn.spring.springRest.webServices.RestWebServices1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

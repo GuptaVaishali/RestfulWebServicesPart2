@@ -1,4 +1,4 @@
-package com.ttn.spring.springRest.webServices.RestWebServices1;
+package com.ttn.spring.springRest.webServices.RestWebServices1.springWelcome;
 
 import com.ttn.spring.springRest.webServices.RestWebServices1.springWelcome.WelcomeToSpring;
 import org.springframework.web.bind.annotation.GetMapping;
