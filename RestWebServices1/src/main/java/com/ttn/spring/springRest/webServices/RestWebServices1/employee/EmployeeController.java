@@ -37,7 +37,12 @@ public class EmployeeController {
         return ResponseEntity.created(location).build();
     }
 
-
+    @DeleteMapping("/employees/{id}")
+    public void DeleteUser(@PathVariable int id){
+        EmployeeBean employee = service.deleteById(id);
+        if(employee == null)
+            throw new EmployeeNotFoundException("id-" + id);
+    }
 
 
 }
