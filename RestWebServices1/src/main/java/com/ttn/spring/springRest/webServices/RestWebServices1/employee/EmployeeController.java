@@ -1,9 +1,11 @@
 package com.ttn.spring.springRest.webServices.RestWebServices1.employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -16,5 +18,22 @@ public class EmployeeController {
     public List<EmployeeBean> retrieveAllEmployees() {
         return service.findAll();
     }
+
+    @GetMapping("/employees/{id}")
+    public EmployeeBean retrieveEmployee(@PathVariable int id){
+        EmployeeBean employee = service.findOne(id);
+        return employee;
+    }
+
+    @PostMapping("/employees")
+    public ResponseEntity<Object> createUser(@RequestBody EmployeeBean employee){
+        EmployeeBean savedEmployee = service.save(employee);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("{id}")
+                .buildAndExpand(savedEmployee.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
 
 }
