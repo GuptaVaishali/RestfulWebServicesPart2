@@ -47,4 +47,15 @@ public class EmployeeDaoService {
         }
         return null;
     }
+
+    public EmployeeBean updateEmployeeDetails(EmployeeBean employee){
+        for(EmployeeBean emp:employees){
+            if(emp.getId() == employee.getId()){
+                emp.setName(employee.getName());
+                emp.setAge(employee.getAge());
+                return emp;
+            }
+        }
+        return null;
+    }
 }

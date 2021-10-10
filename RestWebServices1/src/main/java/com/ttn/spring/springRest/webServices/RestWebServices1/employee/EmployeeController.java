@@ -28,7 +28,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public ResponseEntity<Object> createUser(@RequestBody EmployeeBean employee){
+    public ResponseEntity<Object> createEmployee(@RequestBody EmployeeBean employee){
         EmployeeBean savedEmployee = service.save(employee);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("{id}")
@@ -38,11 +38,20 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/{id}")
-    public void DeleteUser(@PathVariable int id){
+    public void DeleteEmployee(@PathVariable int id){
         EmployeeBean employee = service.deleteById(id);
         if(employee == null)
             throw new EmployeeNotFoundException("id-" + id);
     }
 
+    @PutMapping("/employees")
+    public ResponseEntity<Object> updateEmployee(@RequestBody EmployeeBean employee){
+        EmployeeBean updatedEmployee = service.updateEmployeeDetails(employee);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("{id}")
+                .buildAndExpand(updatedEmployee.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
+    }
 
 }
