@@ -2,6 +2,11 @@ package com.ttn.spring.springRest.webServices.RestWebServices1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+
+import java.util.Locale;
 
 @SpringBootApplication
 public class RestWebServices1Application {
@@ -10,4 +15,10 @@ public class RestWebServices1Application {
 		SpringApplication.run(RestWebServices1Application.class, args);
 	}
 
+	@Bean
+	public LocaleResolver localeResolver(){
+		AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.US);
+		return localeResolver;
+	}
 }
