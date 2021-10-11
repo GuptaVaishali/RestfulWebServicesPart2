@@ -1,5 +1,6 @@
 package com.ttn.spring.springRest.webServices.RestWebServices1.employee;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -20,6 +21,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeDaoService service;
 
+    @ApiModelProperty(notes = "All employee details")
     @GetMapping("/employees")
     public List<EmployeeBean> retrieveAllEmployees() {
         return service.findAll();
@@ -35,6 +37,8 @@ public class EmployeeController {
     }
      */
 
+
+    @ApiModelProperty(notes = "Employee detail")
     @GetMapping("/employees/{id}")
     public EntityModel<EmployeeBean> retrieveEmployee(@PathVariable int id){
         EmployeeBean employee = service.findOne(id);
@@ -48,6 +52,7 @@ public class EmployeeController {
         return resource;
     }
 
+    @ApiModelProperty(notes = "Create employee")
     @PostMapping("/employees")
     public ResponseEntity<Object> createEmployee(@Valid @RequestBody EmployeeBean employee){
         EmployeeBean savedEmployee = service.save(employee);
@@ -58,6 +63,7 @@ public class EmployeeController {
         return ResponseEntity.created(location).build();
     }
 
+    @ApiModelProperty(notes = "Delete employee")
     @DeleteMapping("/employees/{id}")
     public void DeleteEmployee(@PathVariable int id){
         EmployeeBean employee = service.deleteById(id);
@@ -65,6 +71,8 @@ public class EmployeeController {
             throw new EmployeeNotFoundException("id-" + id);
     }
 
+
+    @ApiModelProperty(notes = "Update employees details")
     @PutMapping("/employees")
     public ResponseEntity<Object> updateEmployee(@Valid @RequestBody EmployeeBean employee){
         EmployeeBean updatedEmployee = service.updateEmployeeDetails(employee);
